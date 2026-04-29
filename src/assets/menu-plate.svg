@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <radialGradient id="plate" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#f8f3e7" />
+      <stop offset="100%" stop-color="#d1c2a9" />
+    </radialGradient>
+    <radialGradient id="table" cx="25%" cy="15%" r="75%">
+      <stop offset="0%" stop-color="#214252" />
+      <stop offset="100%" stop-color="#0b1820" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#table)" />
+  <circle cx="400" cy="400" r="260" fill="url(#plate)" />
+  <circle cx="400" cy="400" r="210" fill="#f6f0e2" />
+  <g>
+    <ellipse cx="295" cy="420" rx="72" ry="44" fill="#ef9b53" />
+    <ellipse cx="390" cy="332" rx="68" ry="42" fill="#ffbe7a" />
+    <ellipse cx="500" cy="420" rx="74" ry="46" fill="#d76e56" />
+    <ellipse cx="408" cy="508" rx="82" ry="48" fill="#f4c56a" />
+  </g>
+  <g fill="#4c7e59">
+    <ellipse cx="275" cy="355" rx="24" ry="52" transform="rotate(-28 275 355)" />
+    <ellipse cx="520" cy="338" rx="22" ry="46" transform="rotate(28 520 338)" />
+    <ellipse cx="355" cy="555" rx="20" ry="44" transform="rotate(12 355 555)" />
+    <ellipse cx="470" cy="545" rx="18" ry="40" transform="rotate(-22 470 545)" />
+  </g>
+  <g fill="#f7ede0" fill-opacity="0.22">
+    <circle cx="640" cy="180" r="82" />
+  </g>
+</svg>
