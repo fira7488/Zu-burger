@@ -1,0 +1,67 @@
+{
+  "nav": { "home": "Home", "menu": "Menu", "admin": "Admin" },
+  "header": { "location": "Shashemene" },
+  "home": {
+    "heroTitle": "Follow your heart to Zu Burger Spot.",
+    "heroBody": "A Shashemene burger spot with bold gold branding, family-friendly energy, crispy fries, and a fast digital ordering experience.",
+    "orderNow": "Order Now",
+    "viewMenu": "View Menu"
+  },
+  "menu": {
+    "eyebrow": "Menu",
+    "title": "Explore Zu Burger Spot",
+    "body": "Search, filter, and build an order from signature burgers, family favorites, sides, and drinks.",
+    "searchPlaceholder": "Search burgers, sides, drinks...",
+    "noItemsTitle": "No menu items found",
+    "noItemsBody": "Try a different search or switch categories to keep building your order."
+  },
+  "checkout": {
+    "eyebrow": "Checkout",
+    "title": "Delivery details",
+    "body": "A clean checkout flow with accessible labels, validation, and order persistence.",
+    "fields": {
+      "name": "Customer Name",
+      "phone": "Phone Number",
+      "address": "Address",
+      "notes": "Notes",
+      "paymentMethod": "Payment Method",
+      "language": "Language"
+    },
+    "paymentOptions": {
+      "cash": "Cash",
+      "cbebirr": "CBEBirr",
+      "telebirr": "Telebirr"
+    },
+    "emptyTitle": "No items to checkout",
+    "emptyBody": "Your cart is empty. Add a few favorites before placing an order.",
+    "placeOrder": "Place Order",
+    "placing": "Placing Order...",
+    "errors": {
+      "name": "Customer name is required.",
+      "phone": "Phone number is required.",
+      "address": "Delivery address is required.",
+      "submit": "Could not place your order. Please try again."
+    }
+  },
+  "orderSuccess": {
+    "confirmed": "Order Confirmed",
+    "pendingTitle": "Pending Confirmation",
+    "pendingBody": "Your order has been received and is awaiting admin payment verification.",
+    "confirmedBody": "Your order has been saved and sent to the demo admin dashboard.",
+    "orderNumber": "Order Number",
+    "returnHome": "Return Home",
+    "orderMore": "Order More"
+  },
+  "admin": {
+    "eyebrow": "Admin",
+    "title": "Orders Dashboard",
+    "body": "A lightweight dashboard for tracking Zu Burger Spot orders and statuses.",
+    "totalOrders": "Total Orders",
+    "demoRevenue": "Demo Revenue",
+    "activeOrders": "Active Orders",
+    "noOrdersTitle": "No orders yet",
+    "noOrdersBody": "Placed checkout orders will appear here for staff review.",
+    "createDemo": "Create Demo Order",
+    "paymentLabel": "Payment"
+  }
+}
