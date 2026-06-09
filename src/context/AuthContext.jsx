@@ -10,6 +10,7 @@ const AuthContext = createContext({
   isLoading: true,
   adminLogin: async () => ({ ok: false }),
   adminLogout: () => {},
+  changeAdminPassword: async () => ({ ok: false }),
 });
 
 export function AuthProvider({ children }) {
@@ -72,6 +73,33 @@ export function AuthProvider({ children }) {
     setAdminToken(null);
   };
 
+  const changeAdminPassword = async (currentPassword, newPassword) => {
+    if (!adminToken) {
+      return { ok: false, error: "You must be signed in to change the password." };
+    }
+
+    try {
+      const response = await fetch("/api/admin/password", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        return { ok: false, error: result.error || "Could not update password." };
+      }
+
+      adminLogout();
+      return { ok: true, message: result.message };
+    } catch {
+      return { ok: false, error: "Could not reach the server." };
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -89,6 +117,7 @@ export function AuthProvider({ children }) {
         isLoading,
         adminLogin,
         adminLogout,
+        changeAdminPassword,
       }}
     >
       {children}

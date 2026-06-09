@@ -2,6 +2,12 @@ const crypto = require("crypto");
 const http = require("http");
 const fs = require("fs/promises");
 const path = require("path");
+const {
+  ensureAdminConfig,
+  verifyAdminPassword,
+  changeAdminPassword,
+  readAdminConfig,
+} = require("./adminAuth");
 
 const PORT = Number(process.env.PORT || 5000);
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "ZuBurgerAdmin2026!";
@@ -286,9 +292,11 @@ async function handleApi(req, res, url) {
 
   if (req.method === "POST" && url.pathname === "/api/admin/login") {
     try {
+      await ensureAdminConfig(ADMIN_PASSWORD);
       const payload = JSON.parse(await readBody(req));
       const password = String(payload.password || "");
-      if (password !== ADMIN_PASSWORD) {
+      const valid = await verifyAdminPassword(password, ADMIN_PASSWORD);
+      if (!valid) {
         return sendJson(res, 401, { ok: false, error: "Invalid staff password." });
       }
       const token = crypto.randomBytes(32).toString("hex");
@@ -296,6 +304,54 @@ async function handleApi(req, res, url) {
       return sendJson(res, 200, { ok: true, token });
     } catch {
       return sendJson(res, 400, { ok: false, error: "Invalid login request." });
+    }
+  }
+
+  if (req.method === "GET" && url.pathname === "/api/admin/account") {
+    if (!requireAdmin(req, res)) return;
+    try {
+      const config = await readAdminConfig();
+      return sendJson(res, 200, {
+        ok: true,
+        passwordChangedAt: config?.updatedAt || null,
+      });
+    } catch {
+      return sendJson(res, 500, { ok: false, error: "Could not load account info." });
+    }
+  }
+
+  if (req.method === "PATCH" && url.pathname === "/api/admin/password") {
+    if (!requireAdmin(req, res)) return;
+    try {
+      const payload = JSON.parse(await readBody(req));
+      const currentPassword = String(payload.currentPassword || "");
+      const newPassword = String(payload.newPassword || "");
+
+      if (!currentPassword || !newPassword) {
+        return sendJson(res, 400, {
+          ok: false,
+          error: "Current and new password are required.",
+        });
+      }
+
+      const result = await changeAdminPassword(
+        currentPassword,
+        newPassword,
+        ADMIN_PASSWORD,
+      );
+
+      if (!result.ok) {
+        return sendJson(res, 400, result);
+      }
+
+      adminTokens.clear();
+      return sendJson(res, 200, {
+        ok: true,
+        message: "Password updated. Please sign in again.",
+        passwordChangedAt: result.updatedAt,
+      });
+    } catch {
+      return sendJson(res, 400, { ok: false, error: "Could not update password." });
     }
   }
 
