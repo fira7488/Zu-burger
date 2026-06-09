@@ -3,18 +3,16 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import zuLogo from "../assets/images/zu-logo-social.jpg";
 import { useCart } from "../context/CartContext";
-import { useTranslation } from "../i18n";
 
 const links = [
-  { to: "/", labelKey: "nav.home" },
-  { to: "/menu", labelKey: "nav.menu" },
-  { to: "/admin", labelKey: "nav.admin" },
+  { to: "/", label: "Home" },
+  { to: "/menu", label: "Menu" },
+  { to: "/order-tracking", label: "Track Order" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const { itemCount } = useCart();
-  const { locale, setLocale, t } = useTranslation();
 
   const linkClass = ({ isActive }) =>
     `rounded-full px-4 py-2 text-sm font-bold transition ${
@@ -52,7 +50,7 @@ export default function Header() {
         >
           {links.map((link) => (
             <NavLink key={link.to} to={link.to} className={linkClass}>
-              {t(link.labelKey)}
+              {link.label}
             </NavLink>
           ))}
         </nav>
@@ -71,16 +69,9 @@ export default function Header() {
             )}
           </NavLink>
           <div className="hidden sm:block">
-            <select
-              aria-label="Select language"
-              value={locale}
-              onChange={(e) => setLocale(e.target.value)}
-              className="mr-2 h-9 rounded-full border border-zinc-200 bg-white px-3 text-sm outline-none"
-            >
-              <option value="en">EN</option>
-              <option value="am">AM</option>
-              <option value="om">OM</option>
-            </select>
+            <span className="inline-flex h-9 items-center rounded-full border border-zinc-200 bg-white px-3 text-sm text-zinc-700">
+              EN
+            </span>
           </div>
 
           <button
@@ -110,7 +101,7 @@ export default function Header() {
                 className={linkClass}
                 onClick={() => setOpen(false)}
               >
-                {t(link.labelKey)}
+                {link.label}
               </NavLink>
             ))}
           </nav>

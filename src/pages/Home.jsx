@@ -7,7 +7,6 @@ import socialLogo from "../assets/images/zu-logo-social.jpg";
 import storeSign from "../assets/images/zu-store-sign.jpg";
 import wallQuote from "../assets/images/zu-wall-quote.jpg";
 import { menuItems } from "../data/menuItems";
-import { useTranslation } from "../i18n";
 
 const heroImage =
   "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=1600&q=90";
@@ -69,8 +68,7 @@ const socialProof = [
 ];
 
 export default function Home() {
-  const featured = menuItems.filter((item) => item.featured).slice(0, 4);
-  const { t } = useTranslation();
+  const bestSellers = menuItems.filter((item) => item.featured).slice(0, 4);
 
   return (
     <>
@@ -87,19 +85,23 @@ export default function Home() {
               #zuburgu #shashemene
             </p>
             <h1 className="text-5xl font-black leading-tight tracking-tight md:text-7xl">
-              {t("home.heroTitle")}
+              Follow your heart to{" "}
+              <h2 className="text-5xl color-yellow-400  leading-tight tracking-tight md:text-7xl">
+                Zu Burger
+              </h2>{" "}
+              Spot.
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-zinc-200">
-              {t("home.heroBody")}
+              Family-friendly burgers, fries, and good moments from Shashemene.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button to="/menu">{t("home.orderNow")}</Button>
+              <Button to="/menu">Order Now</Button>
               <Button
                 to="/menu"
                 variant="outline"
                 className="border-white/40 bg-white/10 text-white hover:bg-white hover:text-red-900"
               >
-                {t("home.viewMenu")}
+                View Menu
               </Button>
             </div>
           </div>
@@ -161,15 +163,12 @@ export default function Home() {
       <section className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeader
-            eyebrow={t("section.bestSellersEyebrow") || "Best sellers"}
-            title={t("section.featuredTitle") || "Featured Burgers"}
-            body={
-              t("section.featuredBody") ||
-              "Client-ready product cards with strong photography, clear pricing, and direct add-to-cart actions."
-            }
+            eyebrow="Best sellers"
+            title="The most popular items on the menu"
+            body="Client-ready product cards with strong photography, clear pricing, and direct add-to-cart actions."
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((item) => (
+            {bestSellers.map((item) => (
               <ProductCard key={item.id} item={item} />
             ))}
           </div>

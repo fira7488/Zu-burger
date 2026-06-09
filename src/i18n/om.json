@@ -63,5 +63,10 @@
     "noOrdersBody": "Placed checkout orders will appear here for staff review.",
     "createDemo": "Create Demo Order",
     "paymentLabel": "Payment"
+  },
+  "section": {
+    "bestSellersEyebrow": "Kan gurguramaa jiru",
+    "bestSellersTitle": "Meeshalee kallattii irratti filataman",
+    "bestSellersBody": "Kaardiiwwan sadarkaa maamilaa fi fakkii cimaa, gatii ifaa, fi ida'uu gara baasketti qajeelfama qindaa'anii."
   }
 }

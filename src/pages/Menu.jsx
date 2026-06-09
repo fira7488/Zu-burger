@@ -1,15 +1,25 @@
 import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import EmptyState from "../components/EmptyState";
 import ProductCard from "../components/ProductCard";
 import SectionHeader from "../components/SectionHeader";
-import { categories, menuItems } from "../data/menuItems";
-import { useTranslation } from "../i18n";
+import { categories, menuItems as fallbackMenu } from "../data/menuItems";
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [query, setQuery] = useState("");
-  const { t } = useTranslation();
+  const [menuItems, setMenuItems] = useState(fallbackMenu);
+
+  useEffect(() => {
+    fetch("/api/menu")
+      .then((res) => (res.ok ? res.json() : fallbackMenu))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setMenuItems(data.filter((item) => item.available !== false));
+        }
+      })
+      .catch(() => setMenuItems(fallbackMenu));
+  }, []);
 
   const filteredItems = useMemo(() => {
     const term = query.trim().toLowerCase();
@@ -22,15 +32,15 @@ export default function Menu() {
         item.description.toLowerCase().includes(term);
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, query]);
+  }, [activeCategory, query, menuItems]);
 
   return (
     <section className="px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
-          eyebrow={t("menu.eyebrow")}
-          title={t("menu.title")}
-          body={t("menu.body")}
+          eyebrow="Menu"
+          title="Explore Zu Burger Spot"
+          body="Search, filter, and build an order from signature burgers, family favorites, sides, and drinks."
         />
         <div className="mb-6 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
           <label className="relative block">
@@ -43,7 +53,7 @@ export default function Menu() {
               className="h-14 w-full rounded-full border border-zinc-200 bg-white pl-12 pr-4 text-zinc-950 outline-none transition focus:border-red-800 focus:ring-4 focus:ring-yellow-200"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder={t("menu.searchPlaceholder")}
+              placeholder="Search the menu"
             />
           </label>
           <div className="flex gap-2 overflow-x-auto pb-1">
@@ -71,8 +81,8 @@ export default function Menu() {
           </div>
         ) : (
           <EmptyState
-            title={t("menu.noItemsTitle")}
-            body={t("menu.noItemsBody")}
+            title="No menu items found"
+            body="Try a different search or switch categories to keep building your order."
           />
         )}
       </div>

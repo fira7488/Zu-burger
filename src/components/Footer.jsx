@@ -45,8 +45,7 @@ export default function Footer() {
           <h3 className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-yellow-300">
             Hours
           </h3>
-          <p className="text-sm text-zinc-300">Mon - Thu: 10:00 - 22:00</p>
-          <p className="text-sm text-zinc-300">Fri - Sun: 10:00 - 23:30</p>
+          <p className="text-sm text-zinc-300">Mon - S un: 1:00AM - 3:00PM</p>
         </div>
       </div>
       <div className="border-t border-white/10 px-4 py-5 text-center text-xs text-zinc-400">

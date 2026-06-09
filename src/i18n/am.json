@@ -63,5 +63,10 @@
     "noOrdersBody": "Placed checkout orders will appear here for staff review.",
     "createDemo": "Create Demo Order",
     "paymentLabel": "Payment"
+  },
+  "section": {
+    "bestSellersEyebrow": "የታዋቂ ሽያጭ",
+    "bestSellersTitle": "በምንዛሬ ላይ ብዙ የሚሸጡ ንጥሎች",
+    "bestSellersBody": "ከብርሃን ፎቶግራፊ ጋር የተዘጋጁ የደንበኞች ካርዶች፣ ግምገማ ዋጋ እና ቀጥታ ወደ ጭነት ጨምሮ እንዲገዙ የሚያስችሉ ባህሪያት."
   }
 }

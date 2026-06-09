@@ -1,32 +1,33 @@
 import { MessageSquare, X, Send } from "lucide-react";
 import { useState } from "react";
-import { useTranslation } from "../i18n";
 
-function getBotReply(t, text) {
+function getBotReply(text) {
   const q = (text || "").toLowerCase();
-  if (!q) return t("bot.emptyReply");
+  if (!q) return "Please ask a question or type something to get help.";
   if (q.includes("menu") || q.includes("burger") || q.includes("items"))
-    return t("bot.responses.menu");
+    return "You can browse the full menu on the Menu page and add items to your cart.";
   if (
     q.includes("checkout") ||
     q.includes("order") ||
     q.includes("place order")
   )
-    return t("bot.responses.order");
+    return "Fill out the checkout form, choose a payment method, and place your order.";
   if (q.includes("payment") || q.includes("cbe") || q.includes("telebirr"))
-    return t("bot.responses.payment");
+    return "We accept Telebirr, CBEBirr, Chapa, bank transfer, and cash on delivery.";
   if (q.includes("open") || q.includes("hours") || q.includes("time"))
-    return t("bot.responses.hours");
+    return "The restaurant hours are indicated on the homepage and our contact section.";
   if (q.includes("location") || q.includes("where"))
-    return t("bot.responses.location");
-  return t("bot.responses.fallback");
+    return "Zu Burger Spot is located in Shashemene, and you can order online through the site.";
+  return "I am here to help with your order, menu items, and payment options.";
 }
 
 export default function ChatBot() {
-  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { from: "bot", text: t("bot.welcome") },
+    {
+      from: "bot",
+      text: "Hi there! Ask me about the menu, ordering, or payment options.",
+    },
   ]);
   const [input, setInput] = useState("");
 
@@ -35,7 +36,7 @@ export default function ChatBot() {
     const text = input.trim();
     if (!text) return;
     const userMsg = { from: "user", text };
-    const botMsg = { from: "bot", text: getBotReply(t, text) };
+    const botMsg = { from: "bot", text: getBotReply(text) };
     setMessages((m) => [...m, userMsg, botMsg]);
     setInput("");
   };
@@ -48,7 +49,7 @@ export default function ChatBot() {
             <div className="flex items-center justify-between rounded-t-lg bg-zinc-950 px-4 py-3 text-white">
               <div className="flex items-center gap-2">
                 <MessageSquare size={18} />
-                <span className="font-black">{t("bot.title")}</span>
+                <span className="font-black">Zu Burger Assistant</span>
               </div>
               <button aria-label="Close chat" onClick={() => setOpen(false)}>
                 <X size={18} />
@@ -75,7 +76,7 @@ export default function ChatBot() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={t("bot.placeholder")}
+                placeholder="Ask about ordering, delivery, or the menu"
                 className="w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm outline-none"
               />
               <button

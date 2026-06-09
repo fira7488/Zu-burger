@@ -63,5 +63,10 @@
     "noOrdersBody": "Placed checkout orders will appear here for staff review.",
     "createDemo": "Create Demo Order",
     "paymentLabel": "Payment"
+  },
+  "section": {
+    "bestSellersEyebrow": "Best sellers",
+    "bestSellersTitle": "The most popular items on the menu",
+    "bestSellersBody": "Client-ready product cards with strong photography, clear pricing, and direct add-to-cart actions."
   }
 }
